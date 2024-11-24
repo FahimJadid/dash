@@ -1,12 +1,15 @@
-"use client"
-import { Appbar } from "@repo/ui/appbar";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { Hero } from "@repo/ui/hero";
+import { Features } from "@repo/ui/features";
+import { Testimonial } from "@repo/ui/testimonial";
+import { CTA } from "@repo/ui/cta";
 
-export default function Home() {
-  const session = useSession()
+export default function Page() {
   return (
-    <div>
-      <Appbar user={session.data?.user} onSignIn={signIn} onSignOut={signOut}/>
+    <div className="bg-white">
+      <Hero />
+      <Features />
+      <Testimonial />
+      <CTA />
     </div>
   );
 }

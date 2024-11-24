@@ -39,11 +39,11 @@ export const authOptions = {
         create: {
           email: user.email,
           name: user.name,
-          auth_type: account.provider === "google" ? "GOOGLE" : "GitHub",
+          auth_type: account.provider === "google" ? "GOOGLE" : "GITHUB",
         },
         update: {
           name: user.name,
-          auth_type: account.provider === "google" ? "GOOGLE" : "GitHub",
+          auth_type: account.provider === "google" ? "GOOGLE" : "GITHUB",
         },
       });
       return true;

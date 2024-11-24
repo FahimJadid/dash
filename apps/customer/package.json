@@ -9,6 +9,9 @@
     "lint": "next lint",
     "check-types": "tsc --noEmit"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "@repo/db": "*",
     "@repo/store": "*",
