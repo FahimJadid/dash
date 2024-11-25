@@ -2,6 +2,7 @@ import express from "express";
 import db from "@repo/db/client";
 const app = express();
 
+app.use(express.json());
 // endpoint that the bank will hit
 // when a transaction is made from a user
 // and the bank acknowledges the transaction
@@ -9,6 +10,7 @@ const app = express();
 app.post("/bankWebhook", async (req, res) => {
   //TODO: Add zod validation here?
   // Todo: Check it is a valid request from bank, use a webhook secret
+  // Todo: Check if the OnRampTransaction is already on processing state or not; if it is on processing state, then update the transaction. If it is not on processing state, then create a new transaction.
   const paymentInformation: {
     token: string;
     userId: string;

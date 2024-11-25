@@ -1,10 +1,10 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, MouseEvent } from "react";
 
 interface ButtonProps {
   children: ReactNode;
-  onClick: () => void
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const Button = ({ children, onClick }: ButtonProps) => {

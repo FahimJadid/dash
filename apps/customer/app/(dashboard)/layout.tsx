@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from 'react'
-import { Home, Send, List, Menu, X } from 'lucide-react'
+import { Home, Send, ArrowLeftRight, Menu, X, HandCoins } from 'lucide-react'
 import { SidebarItem } from '../components/SidebarItem'
 
 const sidebarItems = [
   { icon: Home, title: 'Home', href: '/dashboard' },
   { icon: Send, title: 'Transfer', href: '/transfer' },
-  { icon: List, title: 'Transactions', href: '/transactions' },
+  { icon: ArrowLeftRight, title: 'Transactions', href: '/transactions' },
+  { icon: HandCoins, title: 'P2P Transfer', href: '/p2p' },
 ]
 
 export default function DashboardLayout({

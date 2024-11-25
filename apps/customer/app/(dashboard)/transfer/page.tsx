@@ -33,7 +33,7 @@ async function getOnRampTransactions() {
     }))
 }
 
-export default async function TransferPage() {
+export default async function P2PTransferPage() {
     const balance = await getBalance();
     const transactions = await getOnRampTransactions();
 
