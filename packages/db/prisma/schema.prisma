@@ -17,6 +17,8 @@ model User {
   password String
   OnRampTransaction OnRampTransaction[]
   Balance  Balance[]
+  sentTransfers p2pTransfer[] @relation(name: "SenderRelation")
+  receivedTransfers p2pTransfer[] @relation(name: "RecepientRelation")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt @default(now())
 }
@@ -39,6 +41,17 @@ model OnRampTransaction {
   startTime DateTime
   userId    String
   user      User       @relation(fields: [userId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt @default(now())
+}
+
+model p2pTransfer {
+  id       String     @id @default(uuid())
+  amount   Int
+  senderId String
+  sender   User       @relation(name: "SenderRelation", fields: [senderId], references: [id])
+  recepientId String
+  recepient   User       @relation(name: "RecepientRelation", fields: [recepientId], references: [id])
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt @default(now())
 }
