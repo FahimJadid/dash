@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 import prisma from '@repo/db/client'
 import { authOptions } from '../../lib/auth'
 import { P2PTransferCard } from '../../components/P2PTransferCard'
+import { P2PTransactions } from '../../components/P2PTransactions';
 
 
 async function getBalance() {
@@ -19,19 +20,31 @@ async function getBalance() {
 }
 
 
-// async function getRecentTransactions(userId: string) {
-//   const transactions = await prisma.OnRampTransaction.findMany({
-//     where: {
-//       OR: [
-//         { senderId: Number(userId) },
-//         { receiverId: Number(userId) }
-//       ]
-//     },
-//     orderBy: { createdAt: 'desc' },
-//     take: 5
-//   })
-//   return transactions
-// }
+async function getRecentTransactions(userId: string) {
+  const transactions = await prisma.p2pTransfer.findMany({
+    where: {
+      OR: [
+        { senderId: userId },
+        { recepientId: userId }
+      ]
+    },
+    include: {
+        sender: true,
+        recepient: true
+    },
+    orderBy: { createdAt: 'desc' },
+    take: 5
+  })
+  return transactions.map(transaction => ({
+    id: transaction.id,
+    amount: transaction.amount,
+    type: transaction.senderId === userId ? 'SEND' as 'SEND' : 'RECEIVE' as 'RECEIVE', // Explicitly cast the type property to the union type
+    createdAt: transaction.createdAt.toISOString(),
+    senderPhoneNumber: transaction.sender.number,
+    recepientPhoneNumber: transaction.recepient.number,
+  }));
+}
+
 
 export default async function P2PTransferPage() {
     const session = await getServerSession(authOptions)
@@ -42,19 +55,19 @@ export default async function P2PTransferPage() {
     }
 
     const balance = await getBalance();
-    //   const recentTransactions = await getRecentTransactions(userId)
+    const recentTransactions = await getRecentTransactions(userId)
 
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold text-[#4942CE] mb-8">P2P Transfer</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-8">
+                    <P2PTransferCard balance={balance.amount} />
+                </div>
 
-                <P2PTransferCard balance={balance.amount} />
-
-
-                {/* <Card>
-          <TransactionHistory transactions={recentTransactions} />
-        </Card> */}
+                <div className="space-y-8">
+                    <P2PTransactions transactions={recentTransactions} />
+                </div>
             </div>
         </div>
     )

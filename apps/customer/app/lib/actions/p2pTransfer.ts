@@ -47,6 +47,14 @@ export async function p2pTransfer(recipientPhone: string, amountInCents: number)
         data: { amount: { increment: amountInCents } },
       })
 
+      await tx.p2pTransfer.create({
+        data: {
+            senderId: senderId,
+            recepientId: recipient.id,
+            amount: amountInCents,
+        }
+      })
+
     })
 
     return { success: true }
