@@ -43,14 +43,22 @@ async function getRecentTransactions(userId: string): Promise<Transaction[]> {
     orderBy: { createdAt: 'desc' },
     take: 5
   })
-  return transactions.map(transaction => ({
+  return transactions.map((transaction: {
+    id: string
+    amount: number
+    senderId: string
+    recepientId: string
+    createdAt: Date
+    sender: { number: string }
+    recepient: { number: string }
+  }) => ({
     id: transaction.id,
     amount: transaction.amount,
-    type: transaction.senderId === userId ? 'SEND' as 'SEND' : 'RECEIVE' as 'RECEIVE', // Explicitly cast the type property to the union type
+    type: transaction.senderId === userId ? 'SEND' : 'RECEIVE',
     createdAt: transaction.createdAt.toISOString(),
     senderPhoneNumber: transaction.sender.number,
-    recepientPhoneNumber: transaction.recepient.number,
-  }));
+    recepientPhoneNumber: transaction.recepient.number
+  }))
 }
 
 
