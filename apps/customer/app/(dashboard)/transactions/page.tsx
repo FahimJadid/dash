@@ -81,7 +81,7 @@ async function getTransactions(userId: string, page: number = 1, pageSize: numbe
 export default async function TransactionsPage({
     searchParams
 }: {
-    searchParams: { page?: string }
+    searchParams: Promise<{ page?: string }>
 }) {
     const session = await getServerSession(authOptions)
     const userId = session?.user?.id
