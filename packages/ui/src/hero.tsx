@@ -1,8 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import heroImg from '../public/hero.svg'
 import { Button } from './button'
-import hero from "../src/assets/static/hero.svg"
+import Link from 'next/link'
 
 export function Hero() {
   return (
@@ -20,9 +21,11 @@ export function Hero() {
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
-                <Button onClick={() => ""}>
-                   Get Started
-                </Button>
+                  <Link href="/auth/signin">
+                    <Button onClick={() => ""}>
+                      Get Started
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -31,8 +34,8 @@ export function Hero() {
       </div>
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
         <Image
-          className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-          src={hero}
+          className="hidden lg:block h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+          src={heroImg}
           alt="People using Dash app"
           width={800}
           height={600}
@@ -41,4 +44,3 @@ export function Hero() {
     </div>
   )
 }
-

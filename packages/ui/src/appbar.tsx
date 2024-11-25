@@ -1,11 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X, LogIn, CreditCard, Settings, LogOut } from 'lucide-react'
+import { Menu, X, LogIn, Settings, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image';
 import { Button } from './button';
-
 
 interface AppbarProps {
   user?: {
@@ -17,9 +16,9 @@ interface AppbarProps {
 }
 
 const navItems = [
-  { name: 'Send & Receive', href: '#' },
-  { name: 'Pay With Dash', href: '#' },
-  { name: 'Transactions', href: '#' },
+  { name: 'Add Money', href: '/transfer' },
+  { name: 'Transactions', href: '/transactions' },
+  { name: 'P2P Transfer', href: '/p2p' },
 ];
 
 export function Appbar({ user, onSignIn, onSignOut, logo }: AppbarProps) {
@@ -52,7 +51,7 @@ export function Appbar({ user, onSignIn, onSignOut, logo }: AppbarProps) {
               <Button onClick={user ? onSignOut : onSignIn}>
                 <LogIn className="mr-2 h-4 w-4" /> {user ? "Logout" : "Login"}
               </Button>
-              {user && <UserMenu />}
+              {user && <UserMenu onSignOut={onSignOut} />}
             </div>
           </div>
           <div className="-mr-2 flex md:hidden">
@@ -98,7 +97,6 @@ export function Appbar({ user, onSignIn, onSignOut, logo }: AppbarProps) {
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium">{user.name}</div>
-                  <div className="text-sm font-medium text-[#B3B0E6]">john@example.com</div>
                 </div>
               </div>
               <div className="mt-3 px-2 space-y-1">
@@ -123,7 +121,11 @@ export function Appbar({ user, onSignIn, onSignOut, logo }: AppbarProps) {
   );
 }
 
-function UserMenu() {
+interface UserMenuProps {
+  onSignOut: () => void;
+}
+
+function UserMenu({ onSignOut }: UserMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -143,27 +145,20 @@ function UserMenu() {
       {isOpen && (
         <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              role="menuitem"
-            >
-              <CreditCard className="inline-block mr-2 h-4 w-4" /> Card
-            </a>
-            <a
-              href="#"
+            <Link
+              href="/settings"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
             >
               <Settings className="inline-block mr-2 h-4 w-4" /> Settings
-            </a>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            </Link>
+            <button
+              onClick={onSignOut}
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
             >
               <LogOut className="inline-block mr-2 h-4 w-4" /> Sign out
-            </a>
+            </button>
           </div>
         </div>
       )}

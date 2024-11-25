@@ -5,7 +5,7 @@ import React from "react"
 export const TextInput = ({
     placeholder,
     onChange,
-    label
+    label,
 }: {
     placeholder: string;
     onChange: (value: string) => void;
