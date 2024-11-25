@@ -2,10 +2,10 @@ import prisma from "./../index";
 import bcrypt from 'bcrypt';
 async function main() {
   const moon = await prisma.user.upsert({
-    where: { number: "9999999999" },
+    where: { number: "+8809999999999" },
     update: {},
     create: {
-      number: "9999999999",
+      number: "+8809999999999",
       password: await bcrypt.hash("moon", 10),
       name: "moon",
       Balance: {
@@ -26,10 +26,10 @@ async function main() {
     },
   });
   const nadia = await prisma.user.upsert({
-    where: { number: "9999999998" },
+    where: { number: "+8809999999998" },
     update: {},
     create: {
-      number: "9999999998",
+      number: "+8809999999998",
       password: await bcrypt.hash("nadia", 10),
       name: "nadia",
       Balance: {

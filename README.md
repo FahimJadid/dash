@@ -1,81 +1,115 @@
-# Turborepo starter
+# Dash - Modern Payment Solution
 
-This is an official starter Turborepo.
+## Table of Contents
 
-## Using this example
+- [Introduction](#introduction)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+  - [Database Setup](#database-setup)
+  - [Running the Application](#running-the-application)
+- [Development](#development)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-Run the following command:
+## Introduction
 
-```sh
-npx create-turbo@latest
-```
+Dash is a modern payment solution built as a monorepo using Turborepo. It consists of three main applications: Customer, Merchant, and Bank Webhook, along with shared packages for database operations and UI components.
 
-## What's inside?
+This application aims to provide a seamless payment experience for both customers and merchants, with integrated bank webhook functionality for real-time transaction processing.
 
-This Turborepo includes the following packages/apps:
+## Features
 
-### Apps and Packages
+- Customer application for end-users to manage their accounts and make payments
+- Merchant application for businesses to accept payments and manage their accounts
+- Bank webhook service for processing real-time banking events
+- Shared UI components for consistent design across applications
+- Prisma ORM for database operations
+- Authentication using NextAuth.js
+- Responsive design with Tailwind CSS
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## Tech Stack
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- **Framework**: Next.js 15.0.3
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Recoil
+- **Authentication**: NextAuth.js
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Monorepo Tool**: Turborepo
+- **Package Manager**: npm
+- **Build Tool**: esbuild (for bank-webhook)
+- **Server**: Express.js (for bank-webhook)
 
-### Utilities
+## Project Structure
 
-This Turborepo has some additional tools already setup for you:
+The project is structured as a Turborepo monorepo with the following main directories:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- `apps/`
+  - `customer/`: Next.js application for customer-facing features
+  - `merchant/`: Next.js application for merchant-facing features
+  - `bank-webhook/`: Express.js application for handling bank webhooks
+- `packages/`
+  - `db/`: Prisma schema and database client
+  - `ui/`: Shared React components
+  - `store/`: (Assumed) Shared state management
+  - `eslint-config/`: Shared ESLint configuration
+  - `typescript-config/`: Shared TypeScript configuration
 
-### Build
+## Getting Started
 
-To build all apps and packages, run the following command:
+### Prerequisites
 
-```
-cd my-turborepo
-pnpm build
-```
+- Node.js (version 18 or higher)
+- npm (version 10.8.3 or higher)
+- PostgreSQL database
 
-### Develop
+### Installation
 
-To develop all apps and packages, run the following command:
+1. Clone the repository:
 
-```
-cd my-turborepo
-pnpm dev
-```
+   ```sh
+   git clone https://github.com/FahimJadid/dash.git
+   cd dash
+   ```
 
-### Remote Caching
+2. Install dependencies
+   ```sh
+   npm install
+   ```
+3. Environment Variables
+   Copy over all .env.example files to .env
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+   ```sh
+   DATABASE_URL=postgresql://user:password@localhost:5432/dash
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=your_secret
+   ```
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+4. Database Setup
+    - Update .env files everywhere with the right db url
+    - Run postgres either locally or on the cloud (neon.tech or Aiven)
+    - Go to packages/db
+    - Run the following commands
+    ```sh
+    npx prisma migrate dev
+    npx prisma db seed
+    ```
+## Development
+To start developing, run the following command to start the development server:
+    
+    ```sh
+    npm run dev
+    ```
 
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Test Login
+Try logging in using 
+- Select +880 or default
+- phone - 9999999999 
+- password - moon (See seed.ts)    

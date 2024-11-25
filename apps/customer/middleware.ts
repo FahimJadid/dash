@@ -23,7 +23,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // Redirect to login if the user is not authenticated and is trying to access a protected route
-  if (pathname.startsWith('/dashboard') || pathname.startsWith('/transfer') || pathname.startsWith('/transactions')) {
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/transfer') || pathname.startsWith('/transactions') || pathname.startsWith('/p2p')) {
     return NextResponse.redirect(new URL('/api/auth/signin', req.url));
   }
 
@@ -33,5 +33,5 @@ export async function middleware(req: NextRequest) {
 
 // Specify the routes to protect
 export const config = {
-  matcher: ['/', '/dashboard/:path*', '/transfer/:path*', '/transactions/:path*'],
+  matcher: ['/', '/dashboard/:path*', '/transfer/:path*', '/transactions/:path*', '/p2p/:path*'],
 };
