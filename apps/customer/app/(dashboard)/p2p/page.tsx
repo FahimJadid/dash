@@ -1,11 +1,19 @@
-// import { Card } from '@repo/ui/card'
-// import { Center } from '@repo/ui/center'
 import { getServerSession } from 'next-auth'
 import prisma from '@repo/db/client'
 import { authOptions } from '../../lib/auth'
 import { P2PTransferCard } from '../../components/P2PTransferCard'
 import { P2PTransactions } from '../../components/P2PTransactions';
 
+
+  interface Transaction {
+    id: string
+    amount: number
+    type: 'SEND' | 'RECEIVE'
+    createdAt: string
+    senderPhoneNumber: string
+    recepientPhoneNumber: string
+  }
+  
 
 async function getBalance() {
     const session = await getServerSession(authOptions);
@@ -20,7 +28,7 @@ async function getBalance() {
 }
 
 
-async function getRecentTransactions(userId: string) {
+async function getRecentTransactions(userId: string): Promise<Transaction[]> {
   const transactions = await prisma.p2pTransfer.findMany({
     where: {
       OR: [
