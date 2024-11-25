@@ -23,7 +23,10 @@ export async function p2pTransfer(recipientPhone: string, amountInCents: number)
 
   try {
     await prisma.$transaction(async (tx) => {
-      
+      // Lock sender's balance row so that no other transaction can modify it
+      // For example, if two transfers are initiated at the same time, 
+      // We don't want them to both succeed and overdraft the account balance
+      await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${senderId} FOR UPDATE`;
         // Check if sender has sufficient balance
       const senderBalance = await tx.balance.findUnique({
         where: { userId: senderId },
