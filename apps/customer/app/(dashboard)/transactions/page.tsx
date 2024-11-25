@@ -53,7 +53,13 @@ async function getTransactions(userId: string, page: number = 1, pageSize: numbe
                        })
 
     const transactions = [
-        ...onRampTransactions.map(t => ({
+        ...onRampTransactions.map((t: {
+            id: string
+            amount: number
+            startTime: Date
+            status: string
+            provider: string
+        }) => ({
             id: t.id,
             amount: t.amount,
             type: 'ONRAMP' as const,
@@ -61,7 +67,15 @@ async function getTransactions(userId: string, page: number = 1, pageSize: numbe
             status: t.status,
             provider: t.provider
         })),
-        ...p2pTransactions.map(t => ({
+        ...p2pTransactions.map((t: {
+            id: string
+            amount: number
+            senderId: string
+            recepientId: string
+            createdAt: Date
+            sender: { number: string }
+            recepient: { number: string }
+        }) => ({
             id: t.id,
             amount: t.amount,
             type: t.senderId === userId ? 'SEND' as const : 'RECEIVE' as const,
