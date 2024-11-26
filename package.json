@@ -2,7 +2,7 @@
   "name": "dash",
   "private": true,
   "prisma": {
-    "seed": "ts-node packages\\db\\prisma\\seed.ts"
+    "schema": "packages/db/prisma/schema.prisma"
   },
   "scripts": {
     "build": "turbo build",
