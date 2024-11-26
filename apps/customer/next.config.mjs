@@ -7,9 +7,8 @@ const nextConfig = {
     }
     return config
   },
+  // Disable static optimization for all pages
   experimental: {
-    // This will disable static page generation for all pages
-    // You can adjust this to only exclude specific problematic pages
     unstable_disableStaticRendering: true,
   }
 }
