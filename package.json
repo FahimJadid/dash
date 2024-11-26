@@ -6,6 +6,7 @@
   },
   "scripts": {
     "build": "turbo build",
+    "build:customer": "turbo build --filter=customer...",
     "start": "cd apps/customer && npm run start",
     "dev": "turbo dev",
     "lint": "turbo lint",
