@@ -6,14 +6,13 @@
   },
   "scripts": {
     "build": "turbo build",
-    "build:customer": "turbo build --filter=customer...",
-    "postinstall": "cd packages/db && npx prisma generate",
     "start": "cd apps/customer && npm run start",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:docker": "npm run prisma:docker && npm run dev",
-    "prisma:docker": "cd packages/db && npx prisma migrate dev --skip-seed && npx prisma db seed"
+    "prisma:docker": "cd packages/db && npx prisma migrate dev --skip-seed && npx prisma db seed",
+    "postinstall": "cd packages/db && npx prisma generate"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
