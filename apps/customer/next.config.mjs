@@ -7,10 +7,6 @@ const nextConfig = {
     }
     return config
   },
-  // Disable static optimization for all pages
-  experimental: {
-    unstable_disableStaticRendering: true,
-  }
 }
 
 export default nextConfig;
