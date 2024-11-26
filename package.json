@@ -7,6 +7,7 @@
   "scripts": {
     "build": "turbo build",
     "build:customer": "turbo build --filter=customer...",
+    "postinstall": "cd packages/db && npx prisma generate",
     "start": "cd apps/customer && npm run start",
     "dev": "turbo dev",
     "lint": "turbo lint",
