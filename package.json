@@ -2,19 +2,18 @@
   "name": "dash",
   "private": true,
   "prisma": {
-    "schema": "packages/db/prisma/schema.prisma"
+    "seed": "packages/db/prisma/seed.ts"
   },
   "scripts": {
     "build": "turbo build",
     "start": "cd apps/customer && npm run start",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev:docker": "npm run prisma:docker && npm run dev",
-    "prisma:docker": "cd packages/db && npx prisma migrate dev --skip-seed && npx prisma db seed",
-    "postinstall": "cd packages/db && npx prisma generate"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
     "prettier": "^3.2.5",
     "turbo": "^2.3.0",
     "typescript": "5.5.4"

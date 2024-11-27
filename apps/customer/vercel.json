@@ -1,6 +1,0 @@
-{
-  "buildCommand": "cd ../.. && npx prisma generate --schema=./packages/db/prisma/schema.prisma && npm run build -- --filter=customer...",
-  "outputDirectory": ".next",
-  "installCommand": "npm install && cd ../.. && npm install"
-}
-
