@@ -1,8 +1,9 @@
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import db from "@repo/db/client";
+import { AuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -14,18 +15,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({
-      user,
-      account,
-    }: {
-      user: {
-        email: string;
-        name: string;
-      };
-      account: {
-        provider: "google" | "github";
-      };
-    }) {
+    async signIn({ user, account }) {
       if (!user || !user.email) {
         return false;
       }
@@ -38,12 +28,12 @@ export const authOptions = {
         },
         create: {
           email: user.email,
-          name: user.name,
-          auth_type: account.provider === "google" ? "GOOGLE" : "GITHUB",
+          name: user.name || "",
+          auth_type: account?.provider === "google" ? "GOOGLE" : "GITHUB",
         },
         update: {
-          name: user.name,
-          auth_type: account.provider === "google" ? "GOOGLE" : "GITHUB",
+          name: user.name || "",
+          auth_type: account?.provider === "google" ? "GOOGLE" : "GITHUB",
         },
       });
       return true;
